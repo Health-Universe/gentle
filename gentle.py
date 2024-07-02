@@ -131,31 +131,31 @@ def diversity_features(df, key_string):
     """
     st.markdown(f'<h1 style="color:blue;font-size:30px;">{"Diversity Features"}</h1>', unsafe_allow_html=True)
     start_time = datetime.now()
-    @st.cache
+    @st.cache_resource
     def shannon_index(tcrs_df):
         return -sum(n*math.log(2,n) for n in tcrs_df.iloc[:,0]  if n is not 0)
 
-    @st.cache
+    @st.cache_resource
     def simpson_index(tcrs_df):
         return -sum(n**2 for n in tcrs_df.iloc[:,0] if n is not 0)  
 
-    @st.cache
+    @st.cache_resource
     def inverse_simpson_index(tcrs_df):
         return 1.0/sum(n**2 for n in tcrs_df.iloc[:,0] if n is not 0)
 
-    @st.cache
+    @st.cache_resource
     def pielou_index(tcrs_df):
         return simpson_index(tcrs_df) / math.log(len(tcrs_df))
 
-    @st.cache
+    @st.cache_resource
     def one_minus_pielou_index(tcrs_df):
         return 1 - simpson_index(tcrs_df) / math.log(len(tcrs_df))
 
-    @st.cache
+    @st.cache_resource
     def hillnumbers_index(tcrs_df, alpha):
         return sum(n**alpha for n in tcrs_df.iloc[:,0] if n is not 0)**(1/(1-alpha))
 
-    @st.cache
+    @st.cache_resource
     def gini_index(tcrs_df):
         diff = 0
         for x in tcrs_df.iloc[:,0]:
